@@ -5,6 +5,8 @@ import React, {
   useRef,
   
 } from "react";
+
+const API_BASE_URL = import.meta.env.API_URL || 'http://localhost:2300';
 const MyPlayerContext = createContext(null);
 
 function AudioPlayer({ children }) {
@@ -89,7 +91,7 @@ function AudioPlayer({ children }) {
     }
   };
   const handleGetSongs = () => {
-    fetch("http://localhost:2300/data")
+    fetch(`${API_BASE_URL}/data`)
       .then((res) => res.json())
       .then((data) => {
         setSongs(data);
@@ -122,6 +124,7 @@ function AudioPlayer({ children }) {
         previousSong,
         handleGetSongs,
         handleSeek,
+       
         formattedTime: `${formatTime(currentTime)} / ${formatTime(duration)}`,
         progressPercent: duration ? (currentTime / duration) * 100 : 0,
       }}
@@ -131,7 +134,7 @@ function AudioPlayer({ children }) {
         <audio
           ref={audioRef}
           src={
-            `http://localhost:2300/${currentSong.path}` 
+            `${API_BASE_URL}/${currentSong.path}`
           }
          
           onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}

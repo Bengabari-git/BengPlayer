@@ -1,6 +1,7 @@
 import { Play, Pause, Repeat, ChevronsLeft, ChevronsRight, Volume2Icon } from "lucide-react";
 import { useState, useContext } from "react";
 import { MyPlayerContext } from "./AudioPlayer";
+const API_BASE_URL = import.meta.env.API_URL || 'http://localhost:2300';
 
 export default function Player() {
   const [sliderState, setSliderState] = useState(0);
@@ -17,19 +18,23 @@ export default function Player() {
   return (
     <div className="media">
       <div className="card">
-        <div className="details">
+        <div className="art-container">
+          <img
+          id="art"
+          src={`${API_BASE_URL}/${currentSong.albumart}`}
+          alt={currentSong.title || "Album"}
+          width="400"
+        />
+    <div className="details">
           <div className="name">{currentSong.artist}</div>
           <div className="title">{currentSong.title}</div>
           <div className="year">{currentSong.year}</div>
           <div className="genre">{currentSong.genre}</div>
           <div className="album">{currentSong.album}</div>
         </div>
-        <img
-          id="art"
-          src={`http://localhost:2300/${currentSong.albumart}`|| "https://via.placeholder.com/400x400.png?text=No+Cover"}
-          alt=""
-          width="400"
-        />
+        
+        </div>
+        
       </div>
       <div className="controls">
         <div className="seekslider" id="seekslider">
@@ -78,7 +83,7 @@ export default function Player() {
           </button>
           
           
-           <button  type="button" id="loop" className="loop btn">
+           <button  type="button" id="loop" className="vol btn">
             <Volume2Icon color={iconColor} size={size}></Volume2Icon>
           </button>
         </div>

@@ -3,6 +3,8 @@ import { useRef, useState,useEffect, useContext } from "react";
 import UploadProgress from "./UploadProgress";
 import { MyPlayerContext } from "./AudioPlayer";
 import { useSharedData } from "./BarContext";
+const API_BASE_URL = import.meta.env.API_URL || 'http://localhost:2300';
+
 
 function Topbar() {
   let iconsize = 16;
@@ -57,7 +59,7 @@ function Topbar() {
         setStatus("Uploading file(s)...");
         setModalOpen(true);
 
-        xhr.open("POST", "http://localhost:2300/sendFile", true);
+        xhr.open("POST", `${API_BASE_URL}/sendFile`, true);
 
         xhr.upload.addEventListener("progress", function (e) {
           if (e.lengthComputable) {
