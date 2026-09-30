@@ -6,7 +6,11 @@ import React, {
   
 } from "react";
 
+import {io} from 'socket.io-client'
+
+
 const API_BASE_URL = import.meta.env.API_URL || 'http://localhost:2300';
+const socket = io(API_BASE_URL)
 const MyPlayerContext = createContext(null);
 
 function AudioPlayer({ children }) {
@@ -83,24 +87,22 @@ function AudioPlayer({ children }) {
     }
   }, [currentIndex, currentSong]);
 
-  const checkIfEmpty = () => {
-    if(songs.length == 0){
-      setIsEmpty(true);
-    }else{
-      setIsEmpty(false);
-    }
-  };
+ 
   const handleGetSongs = () => {
-    fetch(`${API_BASE_URL}/data`)
-      .then((res) => res.json())
-      .then((data) => {
+    socket.emit('get-files', (data) => {
+        console.log(socket.disconnected);
         setSongs(data);
-      });
+    });
   };
 
   useEffect(() => {
-    handleGetSongs();
-    checkIfEmpty();
+    try{
+      handleGetSongs();
+    }catch(error){
+      console.log("error occured");
+      console.log(socket.disconnected);
+    }
+    
   }, []);
 
   useEffect(() => {

@@ -8,7 +8,7 @@ export default function Player() {
   const sharedData = useContext(MyPlayerContext);
   const { isPlaying, currentIndex, songs, togglePlay, nextSong, previousSong,handleSeek,  formattedTime, progressPercent } = sharedData;
   const currentSong = songs[currentIndex] || {};
-
+  const albumArt = `${API_BASE_URL}/${currentSong.albumart}`;
   let iconColor = "black";
   let size = 40;
 
@@ -21,8 +21,8 @@ export default function Player() {
         <div className="art-container">
           <img
           id="art"
-          src={`${API_BASE_URL}/${currentSong.albumart}`}
-          alt={currentSong.title || "Album"}
+          src={albumArt}
+          alt=""
           width="400"
         />
     <div className="details">
