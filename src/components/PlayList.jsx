@@ -20,21 +20,15 @@ export default function PlayList() {
         ) : 
         (<ul id="list" className="list">
           {songList.map((song, index) => (
-            <li key={index} className={index === currentIndex ? "activeIndex" : "inActive"}>
+            <li key={index} className={index === currentIndex ? "activeIndex" : "inActive"} onClick={() => playSongAtIndex(index)}>
               <div className="song">
-                <div className="artist">{song.artist}</div>
-                <div className="song">{song.title}</div>
+                <div className="artist single-line">{song.artist}</div>
+                <div className="song single-line">{song.title}</div>
               </div>
 
               <div className="buttons">
                 <div className="medTime">{song.duration}</div>
-                <button
-                  type="button"
-                  className="IconButton"
-                  onClick={() => playSongAtIndex(index)}
-                >
-                  <Play color={iconColor}></Play>
-                </button>
+                
                 <button
                   title="delete song"
                   type="button"

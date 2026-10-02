@@ -16,13 +16,14 @@ const MyPlayerContext = createContext(null);
 function AudioPlayer({ children }) {
   const [songs, setSongs] = useState([]); // Populated via your Socket listener
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isEmpty, setIsEmpty] = useState(false)
+  const [looped, setLoop] = useState(false)
+  
 
   // --- Playback States ---
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-
+  const [volume, setVolume] = useState(0);
   // Hidden <audio> reference
   const audioRef = useRef(null);
 
@@ -61,6 +62,21 @@ function AudioPlayer({ children }) {
     setCurrentIndex(prevIdx);
     setIsPlaying(true);
   };
+
+  const loopAudio = () =>{
+    if (!audioRef.current.loop){
+      setLoop(!looped)
+      audioRef.current.loop = looped;
+    }
+  }
+
+const changeVolume = (volPercent) => {
+  if(!audioRef.current) return;
+  const newVolume = volPercent / 100;
+  
+  setVolume(newVolume);
+  audioRef.current.volume = volume;
+}
 
   // 5. Seek Handler (Triggered by range slider)
   const handleSeek = (newPercent) => {
@@ -112,9 +128,12 @@ function AudioPlayer({ children }) {
   return (
     <MyPlayerContext.Provider
       value={{
-        isEmpty,
+        looped,
         songs,
         setSongs,
+        setVolume,
+        volume,
+        changeVolume,
         currentSong,
         currentIndex,
         isPlaying,
@@ -126,7 +145,7 @@ function AudioPlayer({ children }) {
         previousSong,
         handleGetSongs,
         handleSeek,
-       
+        loopAudio,
         formattedTime: `${formatTime(currentTime)} / ${formatTime(duration)}`,
         progressPercent: duration ? (currentTime / duration) * 100 : 0,
       }}
@@ -141,6 +160,7 @@ function AudioPlayer({ children }) {
          
           onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
           onLoadedMetadata={() => setDuration(audioRef.current.duration)}
+          
           onEnded={nextSong}
         />
       )}

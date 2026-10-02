@@ -13,7 +13,6 @@
 	/* border: 2px solid orangered; */
 	border-bottom: none;
 	display: flex;
-	
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -28,25 +27,51 @@
 }
 .card {
 	display: flex;
-	
+	width: 300px;
+	aspect-ratio: 1;
 	align-items: center;
-	
+	overflow: hidden;
+	border-radius: 27px;
 	justify-content: center;
 	padding-bottom: 23px;
+}
+.single-line {
+  width: 200px; /* Set a fixed or maximum width */
+  white-space: nowrap; /* Keep text on one line */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Display three dots (...) */
+}
+.art-container{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 300px;
+	transform: translateY(28%);
+	aspect-ratio: 1;
+	justify-content: center;
+	transition: transform .3s linear;
+}
+.art-container:hover{
+	transform: translateY(-28%);
 }
 .details {
 	text-align: center;
 	background-color: rgba(7, 7, 7, 0.644);
 	font: 23px "bauhaus 93";
 	color: rgb(192, 189, 189);
-	position: absolute;
-	padding: 3px;
-	border-radius: 7px;
-	visibility: hidden;
+	position: relative;
+	padding: 20px 3px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	border-radius: 27px;
+	width: 300px;
+	aspect-ratio: 1;
+	
 }
-.card img:hover + details{
-	visibility: visible;
-}
+
 .card img {
 	border: none;
 	border-radius: 27px;
@@ -59,7 +84,13 @@
 .seekslider {
 	width: 90vw;
 }
-.range {
+.volSlider {
+	width: 30vw;
+	margin: auto;
+	
+}
+
+.range, .vrange {
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	appearance: none;
@@ -69,7 +100,7 @@
 	/* position: absolute; */
 	translate: 0 -8px;
 }
-.range::-webkit-slider-thumb {
+.range::-webkit-slider-thumb, .vrange::-webkit-slider-thumb  {
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	appearance: none;
@@ -80,6 +111,11 @@
 	border: 3px solid black;
 	cursor: pointer;
 }
+.vrange::-webkit-slider-thumb {
+	box-shadow: 2px 2px 25px 10px crimson;
+	border: 10px solid slateblue;
+}
+
 .progressBar {
 	width: 100%;
 	height: 10px;
@@ -88,7 +124,7 @@
 }
 .bar {
 	border-radius: 44px;
-	width: 30%;
+	
 	height: 10px;
 	background: linear-gradient(to right,crimson, blue);
 }
@@ -199,6 +235,10 @@
 	width: 90vw;
 	position: absolute;
 }
+.vrangeslid{
+	width: 30vw;
+}
+
 .time {
 	font: 24px century gothic;
 	color: rgb(192, 189, 189);
