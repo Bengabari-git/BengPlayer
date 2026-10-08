@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { useState, useContext } from "react";
 import { MyPlayerContext } from "./AudioPlayer";
-const API_BASE_URL = import.meta.env.API_URL || "http://localhost:2300";
+const API_BASE_URL = import.meta.env.API_URL || "https://node-mi59.onrender.com";
 
 export default function Player() {
   const [sliderState, setSliderState] = useState(0);
