@@ -9,7 +9,7 @@ import React, {
 import {io} from 'socket.io-client'
 
 
-const API_BASE_URL = import.meta.env.API_URL || 'http://localhost:2300';
+const API_BASE_URL = import.meta.env.API_URL || "https://node-mi59.onrender.com";
 const socket = io(API_BASE_URL)
 const MyPlayerContext = createContext(null);
 
